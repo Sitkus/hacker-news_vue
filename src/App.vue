@@ -1,17 +1,17 @@
 <template>
   <div id="app">
-    <ItemsList />
+    <ItemList />
     <router-view />
   </div>
 </template>
 
 <script>
-import ItemsList from '@/views/ItemsList.vue';
+import ItemList from '@/views/ItemList.vue';
 
 export default {
   name: 'App',
   components: {
-    ItemsList
+    ItemList
   }
 };
 </script>

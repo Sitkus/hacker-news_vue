@@ -1,14 +1,14 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import ItemsList from '../views/ItemsList.vue';
+import ItemList from '../views/ItemList.vue';
 
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: '/',
-    name: 'ItemsList',
-    component: ItemsList
+    name: 'ItemList',
+    component: ItemList
   }
 ];
 
