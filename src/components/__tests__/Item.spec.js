@@ -29,8 +29,9 @@ describe('Item.vue', () => {
     });
 
     const link = wrapper.find('a');
+    const h2 = wrapper.find('h2');
 
-    expect(link.text()).toBe(item.title);
     expect(link.attributes().href).toBe(item.url);
+    expect(h2.text()).toBe(item.title);
   });
 });

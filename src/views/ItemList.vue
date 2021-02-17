@@ -1,5 +1,5 @@
 <template>
-  <ul>
+  <ul class="item-list">
     <Item v-for="item in displayItems" :key="item.id" :item="item" />
   </ul>
 </template>
@@ -20,3 +20,12 @@ export default {
   }
 };
 </script>
+
+<style scoped lang="scss">
+.item-list {
+  background-color: $pale-yellow;
+  max-width: 80rem;
+  width: 90%;
+  margin: 4rem auto;
+}
+</style>
