@@ -9,6 +9,7 @@ const api = Firebase.database().ref('/v0');
 
 function fetch(child) {
   const cache = api.cachedItems;
+
   if (cache && cache.has(child)) {
     return Promise.resolve(cache.get(child));
   } else {
