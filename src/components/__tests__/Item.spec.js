@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils';
-import Item from '../Item.vue';
+import { Item } from '../';
 
 describe('Item.vue', () => {
   test('render a URL, an author and a score from item prop', () => {

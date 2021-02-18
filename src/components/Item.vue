@@ -4,9 +4,9 @@
       <h2 class="item__title">
         {{ item.title }}
       </h2>
-      <!-- <span class="item__title-url">
+      <span class="item__title-url">
         {{ item.url }}
-      </span> -->
+      </span>
     </a>
     <p class="item__meta-data">{{ metaData }}</p>
   </li>

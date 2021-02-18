@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils';
-import ProgressBar from '../ProgressBar.vue';
+import { ProgressBar } from '../';
 
 beforeEach(() => {
   jest.useFakeTimers();
