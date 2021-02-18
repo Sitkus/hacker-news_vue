@@ -1,6 +1,28 @@
 <template>
-  <div :style="{ width: '0%' }" class="progress-bar progress-bar--hidden"></div>
+  <div :style="{ width: `${percentage}%` }" class="progress-bar" :class="{ 'progress-bar--hidden': hidden }"></div>
 </template>
+
+<script>
+export default {
+  name: 'ProgressBar',
+  data() {
+    return {
+      hidden: true,
+      percentage: 0
+    };
+  },
+  methods: {
+    start() {
+      this.percentage = 0;
+      this.hidden = false;
+    },
+    finish() {
+      this.percentage = 100;
+      this.hidden = true;
+    }
+  }
+};
+</script>
 
 <style scoped lang="scss">
 .progress-bar {
