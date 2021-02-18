@@ -1,6 +1,10 @@
 import { shallowMount } from '@vue/test-utils';
 import ProgressBar from '../ProgressBar.vue';
 
+beforeEach(() => {
+  jest.useFakeTimers();
+});
+
 describe('ProgressBar.vue', () => {
   test('displays the bar when start is called', async () => {
     const wrapper = shallowMount(ProgressBar);
@@ -43,5 +47,32 @@ describe('ProgressBar.vue', () => {
     await wrapper.vm.start();
 
     expect(wrapper.element.style.width).toBe('0%');
+  });
+
+  test('increases width by 1% every 100ms after start call', async () => {
+    const wrapper = shallowMount(ProgressBar);
+
+    await wrapper.vm.start();
+
+    await jest.runTimersToTime(100);
+    expect(wrapper.element.style.width).toBe('1%');
+
+    await jest.runTimersToTime(900);
+    expect(wrapper.element.style.width).toBe('10%');
+
+    await jest.runTimersToTime(4000);
+    expect(wrapper.element.style.width).toBe('50%');
+  });
+
+  test('clears timer when finish is called', async () => {
+    jest.spyOn(window, 'clearInterval');
+    setInterval.mockReturnValue(123);
+
+    const wrapper = shallowMount(ProgressBar);
+
+    await wrapper.vm.start();
+    await wrapper.vm.finish();
+
+    expect(window.clearInterval).toHaveBeenCalledWith(123);
   });
 });
