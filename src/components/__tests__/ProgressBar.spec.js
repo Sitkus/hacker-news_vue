@@ -7,6 +7,8 @@ beforeEach(() => {
 
 describe('ProgressBar.vue', () => {
   test('displays the bar when start is called', async () => {
+    expect.assertions(2);
+
     const wrapper = shallowMount(ProgressBar);
     expect(wrapper.classes()).toContain('progress-bar--hidden');
 
@@ -22,6 +24,8 @@ describe('ProgressBar.vue', () => {
   });
 
   test('sets the bar to 100% width when finish is called', async () => {
+    expect.assertions(1);
+
     const wrapper = shallowMount(ProgressBar);
 
     await wrapper.vm.start();
@@ -31,6 +35,8 @@ describe('ProgressBar.vue', () => {
   });
 
   test('hides the bar when finish is called', async () => {
+    expect.assertions(1);
+
     const wrapper = shallowMount(ProgressBar);
 
     await wrapper.vm.start();
@@ -40,6 +46,8 @@ describe('ProgressBar.vue', () => {
   });
 
   test('resets to 0% width when start is called', async () => {
+    expect.assertions(1);
+
     const wrapper = shallowMount(ProgressBar);
 
     await wrapper.vm.start();
@@ -50,6 +58,8 @@ describe('ProgressBar.vue', () => {
   });
 
   test('increases width by 1% every 100ms after start call', async () => {
+    expect.assertions(3);
+
     const wrapper = shallowMount(ProgressBar);
 
     await wrapper.vm.start();
@@ -65,6 +75,8 @@ describe('ProgressBar.vue', () => {
   });
 
   test('clears timer when finish is called', async () => {
+    expect.assertions(1);
+
     jest.spyOn(window, 'clearInterval');
     setInterval.mockReturnValue(123);
 
@@ -74,5 +86,26 @@ describe('ProgressBar.vue', () => {
     await wrapper.vm.finish();
 
     expect(window.clearInterval).toHaveBeenCalledWith(123);
+  });
+
+  test('adds error class after fail function is called', async () => {
+    expect.assertions(1);
+
+    const wrapper = shallowMount(ProgressBar);
+
+    await wrapper.vm.fail();
+
+    expect(wrapper.classes()).toContain('progress-bar--error');
+  });
+
+  test('sets the bar to width 100% when fail is called', async () => {
+    expect.assertions(1);
+
+    const wrapper = shallowMount(ProgressBar);
+
+    await wrapper.vm.start();
+    await wrapper.vm.fail();
+
+    expect(wrapper.element.style.width).toBe('100%');
   });
 });

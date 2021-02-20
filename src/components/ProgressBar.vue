@@ -1,5 +1,9 @@
 <template>
-  <div :style="{ width: `${percentage}%` }" class="progress-bar" :class="{ 'progress-bar--hidden': hidden }"></div>
+  <div
+    :style="{ width: `${percentage}%` }"
+    class="progress-bar"
+    :class="{ 'progress-bar--hidden': hidden, 'progress-bar--error': error }"
+  ></div>
 </template>
 
 <script>
@@ -8,7 +12,8 @@ export default {
   data() {
     return {
       hidden: true,
-      percentage: 0
+      percentage: 0,
+      error: false
     };
   },
   methods: {
@@ -22,6 +27,11 @@ export default {
     finish() {
       this.percentage = 100;
       this.hidden = true;
+      clearInterval(this.timer);
+    },
+    fail() {
+      this.percentage = 100;
+      this.error = true;
       clearInterval(this.timer);
     }
   }
@@ -38,6 +48,10 @@ export default {
 
   &--hidden {
     // visibility: hidden;
+  }
+
+  &--error {
+    background-color: red;
   }
 }
 </style>
