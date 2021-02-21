@@ -26,7 +26,11 @@ export default {
     },
     finish() {
       this.percentage = 100;
-      this.hidden = true;
+
+      setTimeout(() => {
+        this.hidden = true;
+      }, 1400);
+
       clearInterval(this.timer);
     },
     fail() {
@@ -40,14 +44,14 @@ export default {
 
 <style scoped lang="scss">
 .progress-bar {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   background-color: $orange;
   height: 0.5rem;
 
   &--hidden {
-    // visibility: hidden;
+    visibility: hidden;
   }
 
   &--error {

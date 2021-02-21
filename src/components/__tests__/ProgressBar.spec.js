@@ -42,6 +42,7 @@ describe('ProgressBar.vue', () => {
     await wrapper.vm.start();
     await wrapper.vm.finish();
 
+    await jest.runTimersToTime(1400);
     expect(wrapper.classes()).toContain('progress-bar--hidden');
   });
 
