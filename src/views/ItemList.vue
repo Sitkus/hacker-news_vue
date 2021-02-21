@@ -1,27 +1,24 @@
 <template>
   <ul class="item-list">
-    <Item v-for="item in displayItems" :key="item.id" :item="item" />
+    <Item v-for="item in $store.getters.displayItems" :key="item.id" :item="item" />
   </ul>
 </template>
 
 <script>
 import { Item } from '@/components';
-import { fetchListData } from '@/api/api';
 
 export default {
   name: 'ItemList',
   components: {
     Item
   },
-  data() {
-    return {
-      displayItems: []
-    };
-  },
   methods: {
     loadItems() {
       this.$bar.start();
-      fetchListData('top')
+      this.$store
+        .dispatch('fetchItems', {
+          type: 'top'
+        })
         .then((items) => {
           this.displayItems = items;
           this.$bar.finish();

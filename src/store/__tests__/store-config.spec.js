@@ -19,7 +19,7 @@ function createItems() {
 }
 
 describe('store-config', () => {
-  test('dispatching fetchListData updates displayItems getter', async () => {
+  test('dispatching fetchItems updates displayItems getter', async () => {
     expect.assertions(1);
 
     const items = createItems();
