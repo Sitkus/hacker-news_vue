@@ -1,7 +1,9 @@
 <template>
   <ul class="item-list">
     <Item v-for="item in $store.getters.displayItems" :key="item.id" :item="item" />
-    <p class="item-list__page">{{ $route.params.page || 1 }}/{{ $store.getters.maxPage }}</p>
+    <p v-if="$store.getters.maxPage" class="item-list__page">
+      {{ $route.params.page || 1 }}/{{ $store.getters.maxPage }}
+    </p>
   </ul>
 </template>
 
@@ -21,11 +23,15 @@ export default {
           type: this.$route.params.type
         })
         .then(() => {
+          this.$bar.finish();
+
           if (this.$route.params.page > this.$store.getters.maxPage) {
             this.$router.replace(`/${this.$route.params.type}/1`);
+          } else if (this.$route.params.page < 1) {
+            this.$router.replace(`/${this.$route.params.type}/1`);
+          } else if (!/^\d+$/.test(this.$route.params.page)) {
+            this.$router.replace(`/${this.$route.params.type}/1`);
           }
-
-          this.$bar.finish();
         })
         .catch(() => this.$bar.fail());
     }

@@ -198,4 +198,56 @@ describe('ItemList.vue', () => {
 
     expect(mocks.$router.replace).toHaveBeenCalledWith('/top/1');
   });
+
+  test('calls $router.replace when the page parameter is lesser than 1', async () => {
+    expect.assertions(1);
+
+    const store = createStore({
+      getters: {
+        maxPage: () => 5
+      }
+    });
+    const mocks = {
+      $route: {
+        params: {
+          page: '-100'
+        }
+      },
+      $router: {
+        replace: jest.fn()
+      }
+    };
+
+    createWrapper({ store, mocks });
+
+    await flushPromises();
+
+    expect(mocks.$router.replace).toHaveBeenCalledWith('/top/1');
+  });
+
+  test('calls $router.replace when the page parameters is anything but number', async () => {
+    expect.assertions(1);
+
+    const store = createStore({
+      getters: {
+        maxPage: () => 5
+      }
+    });
+    const mocks = {
+      $route: {
+        params: {
+          page: 'jhjdsf234l'
+        }
+      },
+      $router: {
+        replace: jest.fn()
+      }
+    };
+
+    createWrapper({ store, mocks });
+
+    await flushPromises();
+
+    expect(mocks.$router.replace).toHaveBeenCalledWith('/top/1');
+  });
 });
