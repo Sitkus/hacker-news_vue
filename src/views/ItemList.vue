@@ -1,9 +1,28 @@
 <template>
   <ul class="item-list">
     <Item v-for="item in $store.getters.displayItems" :key="item.id" :item="item" />
-    <p v-if="$store.getters.maxPage" class="item-list__page">
-      {{ $route.params.page || 1 }}/{{ $store.getters.maxPage }}
-    </p>
+
+    <nav v-if="$store.getters.maxPage" class="bot-nav">
+      <router-link
+        class="item-list__link"
+        v-if="$route.params.page > 1"
+        :to="`/${$route.params.type}/${$route.params.page - 1}`"
+      >
+        &lt; prev
+      </router-link>
+      <a class="item-list__link item-list__link--disabled" v-else>&lt; prev</a>
+
+      <p class="item-list__page">{{ $route.params.page || 1 }}/{{ $store.getters.maxPage }}</p>
+
+      <router-link
+        class="item-list__link"
+        v-if="($route.params.page || 1) < $store.getters.maxPage"
+        :to="`/${$route.params.type}/${(Number($route.params.page) || 1) + 1}`"
+      >
+        next &gt;
+      </router-link>
+      <a class="item-list__link item-list__link--disabled" v-else>next &gt;</a>
+    </nav>
   </ul>
 </template>
 
@@ -44,8 +63,26 @@ export default {
 
 <style scoped lang="scss">
 .item-list {
+  display: flex;
+  flex-direction: column;
+  align-items: space-between;
   background-color: $pale-yellow;
-  padding: 1rem 0;
   min-height: 50rem;
+
+  &__page {
+    //
+  }
+
+  .bot-nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 1.5rem 0.5rem 1.5rem;
+  }
+
+  &__link--disabled {
+    user-select: none;
+    color: #ccc;
+    cursor: not-allowed;
+  }
 }
 </style>

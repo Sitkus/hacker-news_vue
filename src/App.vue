@@ -2,8 +2,10 @@
   <div id="app">
     <main class="main">
       <header class="header">
-        <router-link tag="h1" class="header__title" to="/top">
-          Hacker News
+        <router-link class="header__title-link" to="/top">
+          <h1 class="header__title">
+            Hacker News
+          </h1>
         </router-link>
 
         <nav class="nav">
@@ -56,7 +58,7 @@ export default {
   }
 }
 
-.router-link-exact-active:not(.header__title) {
+.nav__link.router-link-active {
   color: white;
 }
 </style>

@@ -1,4 +1,4 @@
-import { shallowMount, createLocalVue } from '@vue/test-utils';
+import { shallowMount, createLocalVue, RouterLinkStub } from '@vue/test-utils';
 import mergeWith from 'lodash.mergewith';
 import Vuex from 'vuex';
 import flushPromises from 'flush-promises';
@@ -33,6 +33,9 @@ function createStore(overrides) {
 
 function createWrapper(overrides) {
   const defaultMountingOptions = {
+    stubs: {
+      routerLink: RouterLinkStub
+    },
     mocks: {
       $bar: {
         start: jest.fn(),
@@ -249,5 +252,94 @@ describe('ItemList.vue', () => {
     await flushPromises();
 
     expect(mocks.$router.replace).toHaveBeenCalledWith('/top/1');
+  });
+
+  test('renders a routerLink with the previous page if one exists', () => {
+    const store = createStore({
+      getters: {
+        maxPage: () => 3
+      }
+    });
+    const mocks = {
+      $route: {
+        params: {
+          page: '2'
+        }
+      }
+    };
+    const wrapper = createWrapper({ store, mocks });
+
+    expect(wrapper.findComponent(RouterLinkStub).props().to).toBe('/top/1');
+    expect(wrapper.findComponent(RouterLinkStub).text()).toBe('< prev');
+  });
+
+  test('renders a routerLink with the next page if one exists', () => {
+    const store = createStore({
+      getters: {
+        maxPage: () => 3
+      }
+    });
+    const mocks = {
+      $route: {
+        params: {
+          page: '1'
+        }
+      }
+    };
+
+    const wrapper = createWrapper({ store, mocks });
+
+    expect(wrapper.findComponent(RouterLinkStub).props().to).toBe('/top/2');
+    expect(wrapper.findComponent(RouterLinkStub).text()).toBe('next >');
+  });
+
+  test('renders a routerLink with the next page when no page params exists', () => {
+    const store = createStore({
+      getters: {
+        maxPage: () => 3
+      }
+    });
+
+    const wrapper = createWrapper({ store });
+
+    expect(wrapper.findComponent(RouterLinkStub).props().to).toBe('/top/2');
+    expect(wrapper.findComponent(RouterLinkStub).text()).toBe('next >');
+  });
+
+  test('renders an <a> element without an href if there are no previous page', () => {
+    const store = createStore({
+      getters: {
+        maxPage: () => 3
+      }
+    });
+
+    const wrapper = createWrapper({ store });
+
+    expect(wrapper.find('a').attributes().href).toBe(undefined);
+    expect(wrapper.find('a').text()).toBe('< prev');
+  });
+
+  test('renders an <a> element without an href if there are no next page', () => {
+    const store = createStore({
+      getters: {
+        maxPage: () => 1
+      }
+    });
+
+    const wrapper = createWrapper({ store });
+
+    expect(
+      wrapper
+        .findAll('a')
+        .at(1)
+        .attributes().href
+    ).toBe(undefined);
+
+    expect(
+      wrapper
+        .findAll('a')
+        .at(1)
+        .text()
+    ).toBe('next >');
   });
 });
