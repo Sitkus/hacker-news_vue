@@ -20,22 +20,21 @@ export default {
     start() {
       this.percentage = 0;
       this.hidden = false;
+
       this.timer = setInterval(() => {
         this.percentage++;
       }, 100);
     },
     finish() {
       this.percentage = 100;
-
-      setTimeout(() => {
-        this.hidden = true;
-      }, 1400);
+      this.hidden = true;
 
       clearInterval(this.timer);
     },
     fail() {
       this.percentage = 100;
       this.error = true;
+
       clearInterval(this.timer);
     }
   }

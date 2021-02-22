@@ -31,7 +31,7 @@ export default {
 
 <style scoped lang="scss">
 .item {
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
   padding: 0.5rem 1.5rem;
 
   &__link {
@@ -44,6 +44,7 @@ export default {
   }
 
   &__title-url {
+    font-size: 1.2rem;
     //
   }
 

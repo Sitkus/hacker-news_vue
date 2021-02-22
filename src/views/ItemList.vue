@@ -35,8 +35,7 @@ export default {
 <style scoped lang="scss">
 .item-list {
   background-color: $pale-yellow;
-  max-width: 80rem;
-  width: 90%;
-  margin: 4rem auto;
+  padding: 1rem 0;
+  min-height: 50rem;
 }
 </style>

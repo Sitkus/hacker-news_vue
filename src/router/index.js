@@ -6,9 +6,12 @@ Vue.use(VueRouter);
 
 const routes = [
   {
-    path: '/',
-    name: 'ItemList',
+    path: '/:type(top|new|show|ask|job)/:page?',
     component: ItemList
+  },
+  {
+    path: '/',
+    redirect: '/top'
   }
 ];
 
