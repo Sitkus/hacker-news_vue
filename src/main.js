@@ -8,7 +8,7 @@ import storeConfig from './store/store-config';
 import { ProgressBar } from '@/components';
 
 Vue.use(Vuex);
-Vuex.use(Router);
+Vue.use(Router);
 
 const router = new Router(routerConfig);
 const store = new Vuex.Store(storeConfig);

@@ -27,16 +27,25 @@
 </template>
 
 <script>
+import { titleMixin } from '@/util/mixins';
 import { Item } from '@/components';
+
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
 
 export default {
   name: 'ItemList',
   components: {
     Item
   },
+  title() {
+    return `${capitalizeFirstLetter(this.$route.params.type)}`;
+  },
   methods: {
     loadItems() {
       this.$bar.start();
+
       this.$store
         .dispatch('fetchItems', {
           type: this.$route.params.type
@@ -57,7 +66,8 @@ export default {
   },
   beforeMount() {
     this.loadItems();
-  }
+  },
+  mixins: [titleMixin]
 };
 </script>
 

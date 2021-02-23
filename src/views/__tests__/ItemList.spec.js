@@ -342,4 +342,18 @@ describe('ItemList.vue', () => {
         .text()
     ).toBe('next >');
   });
+
+  test('sets document.title with the capitalized type prop', () => {
+    createWrapper({
+      mocks: {
+        $route: {
+          params: {
+            type: 'top'
+          }
+        }
+      }
+    });
+
+    expect(document.title).toBe('Hacker News | Top');
+  });
 });
