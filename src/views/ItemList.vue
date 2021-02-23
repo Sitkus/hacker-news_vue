@@ -27,7 +27,6 @@
 </template>
 
 <script>
-import { titleMixin } from '@/util/mixins';
 import { Item } from '@/components';
 
 function capitalizeFirstLetter(string) {
@@ -66,8 +65,7 @@ export default {
   },
   beforeMount() {
     this.loadItems();
-  },
-  mixins: [titleMixin]
+  }
 };
 </script>
 

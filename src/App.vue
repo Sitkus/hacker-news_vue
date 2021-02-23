@@ -22,12 +22,8 @@
 </template>
 
 <script>
-import { titleMixin } from '@/util/mixins';
-
 export default {
-  name: 'App',
-  title: 'Top',
-  mixins: [titleMixin]
+  name: 'App'
 };
 </script>
 

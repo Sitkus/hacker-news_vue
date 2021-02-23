@@ -6,9 +6,11 @@ import App from './App.vue';
 import routerConfig from './router/router-config';
 import storeConfig from './store/store-config';
 import { ProgressBar } from '@/components';
+import { titleMixin } from '@/util/mixins';
 
 Vue.use(Vuex);
 Vue.use(Router);
+Vue.use(titleMixin);
 
 const router = new Router(routerConfig);
 const store = new Vuex.Store(storeConfig);

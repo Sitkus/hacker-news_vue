@@ -70,6 +70,9 @@
     "not dead"
   ],
   "jest": {
+    "setupFiles": [
+      "./test-setup.js"
+    ],
     "preset": "@vue/cli-plugin-unit-jest"
   }
 }
