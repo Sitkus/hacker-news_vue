@@ -1,11 +1,3 @@
-function getTitle(vm) {
-  const { title } = vm.$options;
-
-  if (title) {
-    return typeof title === 'function' ? title.call(vm) : title;
-  }
-}
-
 export const titleMixin = {
   mounted() {
     const title = getTitle(this);
@@ -15,3 +7,11 @@ export const titleMixin = {
     }
   }
 };
+
+function getTitle(vm) {
+  const { title } = vm.$options;
+
+  if (title) {
+    return typeof title === 'function' ? title.call(vm) : title;
+  }
+}

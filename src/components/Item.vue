@@ -17,7 +17,7 @@ export default {
   name: 'Item',
   data() {
     return {
-      metaData: `${this.item.score} points by ${this.item.author}`
+      metaData: `${this.item.score} points by ${this.item.by} ${this.$options.filters.timeAgo(this.item.time)} ago`
     };
   },
   props: {

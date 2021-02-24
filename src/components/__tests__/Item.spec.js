@@ -5,7 +5,7 @@ describe('Item.vue', () => {
   test('render a URL, an author and a score from item prop', () => {
     const item = {
       url: 'https://google.com',
-      author: 'Bill',
+      by: 'Bill',
       score: 20
     };
 
@@ -14,7 +14,7 @@ describe('Item.vue', () => {
     });
 
     expect(wrapper.text()).toContain(item.url);
-    expect(wrapper.text()).toContain(item.author);
+    expect(wrapper.text()).toContain(item.by);
     expect(wrapper.text()).toContain(item.score);
   });
 
@@ -33,5 +33,25 @@ describe('Item.vue', () => {
 
     expect(link.attributes().href).toBe(item.url);
     expect(h2.text()).toBe(item.title);
+  });
+
+  test('renders the time since the last post', () => {
+    const dateNow = jest.spyOn(Date, 'now');
+    const dateNowTime = new Date('2020');
+
+    dateNow.mockImplementation(() => dateNowTime);
+
+    const item = {
+      time: dateNowTime / 1000 - 600
+    };
+    const wrapper = shallowMount(Item, {
+      propsData: {
+        item
+      }
+    });
+
+    dateNow.mockRestore();
+
+    expect(wrapper.text()).toContain('10 minutes ago');
   });
 });
