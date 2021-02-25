@@ -16,7 +16,9 @@
           <router-link class="nav__link" to="/job">job</router-link>
         </nav>
       </header>
-      <router-view :key="$route.params.type" />
+      <div class="view">
+        <router-view :key="$route.params.type" />
+      </div>
     </main>
   </div>
 </template>
@@ -60,5 +62,9 @@ export default {
 
 .nav__link.router-link-active {
   color: white;
+}
+
+.view {
+  background-color: $pale-yellow;
 }
 </style>

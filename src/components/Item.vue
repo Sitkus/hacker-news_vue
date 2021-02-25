@@ -1,25 +1,28 @@
 <template>
   <li class="item">
-    <a :href="item.url" class="item__link">
-      <h2 class="item__title">
+    <h2 class="item__title">
+      <a :href="item.url" target="_blank" rel="noopener" class="item__link">
         {{ item.title }}
-      </h2>
-      <span class="item__title-url">
-        {{ item.url }}
+        <span class="item__title-url"> ({{ item.url | host }}) </span>
+      </a>
+    </h2>
+
+    <div class="meta">
+      <span class="meta__score">{{ item.score }}</span>
+      <span v-if="item.type !== 'job'" class="meta__by">
+        by <router-link :to="'/user/' + item.by">{{ item.by }}</router-link>
       </span>
-    </a>
-    <p class="item__meta-data">{{ metaData }}</p>
+      <span v-if="item.type !== 'job'" class="meta__comments-link">
+        | <router-link :to="'/item/' + item.id">{{ item.descendants }} comments</router-link>
+      </span>
+      <span> {{ item.time | timeAgo }} ago </span>
+    </div>
   </li>
 </template>
 
 <script>
 export default {
   name: 'Item',
-  data() {
-    return {
-      metaData: `${this.item.score} points by ${this.item.by} ${this.$options.filters.timeAgo(this.item.time)} ago`
-    };
-  },
   props: {
     item: {
       type: Object,
@@ -44,13 +47,14 @@ export default {
   }
 
   &__title-url {
-    font-size: 1.2rem;
-    //
-  }
-
-  &__meta-data {
     color: grey;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
+    font-weight: 400;
   }
+}
+
+.meta {
+  color: grey;
+  font-size: 1.2rem;
 }
 </style>

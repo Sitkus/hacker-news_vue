@@ -1,20 +1,59 @@
-import { shallowMount } from '@vue/test-utils';
+import { shallowMount, RouterLinkStub } from '@vue/test-utils';
 import { Item } from '../';
+import merge from 'lodash.merge';
+
+function createWrapper(overrides) {
+  const defaultMountingOptions = {
+    stubs: {
+      routerLink: RouterLinkStub
+    },
+    propsData: {
+      item: {}
+    }
+  };
+  return shallowMount(Item, merge(defaultMountingOptions, overrides));
+}
 
 describe('Item.vue', () => {
-  test('render a URL, an author and a score from item prop', () => {
+  test('renders the hostname', () => {
     const item = {
-      url: 'https://google.com',
-      by: 'Bill',
-      score: 20
+      url: 'https://some-url.com/with-paths/multiple'
     };
 
-    const wrapper = shallowMount(Item, {
-      propsData: { item }
+    const wrapper = createWrapper({
+      propsData: {
+        item
+      }
     });
 
-    expect(wrapper.text()).toContain(item.url);
+    expect(wrapper.text()).toContain('(some-url.com)');
+  });
+
+  test('renders an item.by from item prop', () => {
+    const item = {
+      by: 'some author'
+    };
+
+    const wrapper = createWrapper({
+      propsData: {
+        item
+      }
+    });
+
     expect(wrapper.text()).toContain(item.by);
+  });
+
+  test('renders item.score from item prop', () => {
+    const item = {
+      score: 10
+    };
+
+    const wrapper = createWrapper({
+      propsData: {
+        item
+      }
+    });
+
     expect(wrapper.text()).toContain(item.score);
   });
 
@@ -24,15 +63,16 @@ describe('Item.vue', () => {
       title: 'some title'
     };
 
-    const wrapper = shallowMount(Item, {
-      propsData: { item }
+    const wrapper = createWrapper({
+      propsData: {
+        item
+      }
     });
 
-    const link = wrapper.find('a');
-    const h2 = wrapper.find('h2');
+    const a = wrapper.find('a');
 
-    expect(link.attributes().href).toBe(item.url);
-    expect(h2.text()).toBe(item.title);
+    expect(a.text()).toContain(item.title);
+    expect(a.attributes().href).toBe(item.url);
   });
 
   test('renders the time since the last post', () => {
@@ -44,7 +84,7 @@ describe('Item.vue', () => {
     const item = {
       time: dateNowTime / 1000 - 600
     };
-    const wrapper = shallowMount(Item, {
+    const wrapper = createWrapper({
       propsData: {
         item
       }
