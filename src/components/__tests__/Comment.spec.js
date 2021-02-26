@@ -1,6 +1,6 @@
 import { shallowMount, createLocalVue, RouterLinkStub } from '@vue/test-utils';
 import Vuex from 'vuex';
-import Comment from '../Comment.vue';
+import { Comment } from '../';
 import merge from 'lodash.merge';
 
 const localVue = createLocalVue();

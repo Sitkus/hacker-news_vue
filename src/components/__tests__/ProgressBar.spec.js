@@ -113,3 +113,9 @@ describe('ProgressBar.vue', () => {
     expect(wrapper.element.style.width).toBe('100%');
   });
 });
+
+describe('ProgressBar.vue snapshots', () => {
+  test('renders correctly', () => {
+    expect(wrapper.element).toMatchSnapshot();
+  });
+});

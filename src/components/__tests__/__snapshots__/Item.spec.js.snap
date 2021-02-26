@@ -1,0 +1,104 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Item.vue snapshots renders correctly 1`] = `
+<li
+  class="item"
+>
+  <h2
+    class="item__title"
+  >
+    <a
+      class="item__link"
+      href="https://vue-test-utils.vuejs.org/"
+      rel="noopener"
+      target="_blank"
+    >
+      
+      vue-test-utils is released
+      
+      <span
+        class="item__title-url"
+      >
+         (vue-test-utils.vuejs.org) 
+      </span>
+    </a>
+  </h2>
+   
+  <div
+    class="meta"
+  >
+    <span
+      class="meta__score"
+    >
+      10
+    </span>
+     
+    <span
+      class="meta__by"
+    >
+      
+      by 
+      <a>
+        Lukas Sitkus
+      </a>
+    </span>
+     
+    <span
+      class="meta__comments-link"
+    >
+      
+      | 
+      <a>
+         comments
+      </a>
+    </span>
+     
+    <span>
+       10 minutes ago 
+    </span>
+  </div>
+</li>
+`;
+
+exports[`Item.vue snapshots renders correctly as job 1`] = `
+<li
+  class="item"
+>
+  <h2
+    class="item__title"
+  >
+    <a
+      class="item__link"
+      rel="noopener"
+      target="_blank"
+    >
+      
+      vue-test-utils is released
+      
+      <span
+        class="item__title-url"
+      >
+         () 
+      </span>
+    </a>
+  </h2>
+   
+  <div
+    class="meta"
+  >
+    <span
+      class="meta__score"
+    >
+      10
+    </span>
+     
+    <!---->
+     
+    <!---->
+     
+    <span>
+       10 minutes ago 
+    </span>
+  </div>
+</li>
+`;

@@ -37,10 +37,6 @@ export default {
   margin-bottom: 1rem;
   padding: 0.5rem 1.5rem;
 
-  &__link {
-    //
-  }
-
   &__title {
     font-weight: 500;
     font-size: 1.6rem;

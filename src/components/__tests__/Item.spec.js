@@ -95,3 +95,56 @@ describe('Item.vue', () => {
     expect(wrapper.text()).toContain('10 minutes ago');
   });
 });
+
+describe('Item.vue snapshots', () => {
+  test('renders correctly', () => {
+    const dateNow = jest.spyOn(Date, 'now');
+    const dateNowTime = new Date('2020');
+
+    dateNow.mockImplementation(() => dateNowTime);
+
+    const item = {
+      by: 'Lukas Sitkus',
+      id: 111222333,
+      score: 10,
+      time: dateNowTime / 1000 - 600,
+      title: 'vue-test-utils is released',
+      type: 'story',
+      url: 'https://vue-test-utils.vuejs.org/'
+    };
+    const wrapper = createWrapper({
+      propsData: {
+        item
+      }
+    });
+
+    dateNow.mockRestore();
+
+    expect(wrapper.element).toMatchSnapshot();
+  });
+
+  test('renders correctly as job', () => {
+    const dateNow = jest.spyOn(Date, 'now');
+    const dateNowTime = new Date('2020');
+
+    dateNow.mockImplementation(() => dateNowTime);
+
+    const item = {
+      by: 'Lukas Sitkus',
+      id: 111222333,
+      score: 10,
+      time: dateNowTime / 1000 - 600,
+      title: 'vue-test-utils is released',
+      type: 'job'
+    };
+    const wrapper = createWrapper({
+      propsData: {
+        item
+      }
+    });
+
+    dateNow.mockRestore();
+
+    expect(wrapper.element).toMatchSnapshot();
+  });
+});
